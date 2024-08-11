@@ -27,7 +27,7 @@ def load_adj():
        for j in range(len(lines[i])):
            if (lines[i][j] != 0):
                adj[i].append(Node(i, j, lines[i][j]))
-               adj[j].append(Node(j, i, lines[i][j]))
+               #adj[j].append(Node(j, i, lines[i][j]))
                #print(str(i) + " " + str(j))
     return(adj)
     
@@ -100,28 +100,44 @@ if __name__ == '__main__':
     list1 = []
     list2 = []
     
+    # Weights for nodes 
+    nodeImp = []
+    for i in range(len(adj)):
+        summed = 0
+        for j in adj[i]:
+            summed += (len(adj[i]) * len(adj[j.y])) / (j.weight)**2
+        if summed != 0:
+            nodeImp.append(summed/len(adj[i]))
+        else:
+            nodeImp.append(0)
+    nodeImp = [imp/max(nodeImp) for imp in nodeImp]
+            
+            
     f = open("prims_graph_flat.txt", "w") 
-    f.write("Taxa1\tNodename\tTaxa2\tCorrelation\n")
+    f.write("Taxa1\tTaxa1Imp\tTaxa2\tCorrelation\n")
     for i in range(len(prims)):
         for j in range(len(prims[i])):
             if (prims[i][j] != 0):
-                f.write(str(i) + "\t" + str(i) + "\t" + str(j) + "\t" + str(prims[i][j]) + "\n")
+                print(i)
+                f.write(str(i) + "\t" + str(nodeImp[i]) + "\t" + str(j) + "\t" + str(prims[i][j]) + "\n")
                 #f.write(str(j) + "\t" + str(j) + "\t" + str(i) + "\t" + str(prims[i][j]) + "\n")
                 if i not in list1:
                     list1.append(i)
                 if j not in list1:
                     list1.append(j)
+        f.write(str(i) + "\t" + str(nodeImp[i]) + "\t" + str(i) + "\t" + str(prims[i][i]) + "\n")
     f.close()
     
     f = open("adjacency_matrix_flat.txt", "w") 
-    f.write("Taxa1\tTaxa2\tCorrelation\n")
+    f.write("Taxa1\tTaxa1Imp\tTaxa2\tTaxa2Imp\tCorrelation\n")
     for i in range(len(adj)):
         for j in range(len(adj[i])):
             if (adj[i][j] != 0):
                 if (adj[i][j].x, adj[i][j].y) not in list2 and (adj[i][j].y, adj[i][j].x) not in list2:
-                    f.write(str(adj[i][j].x) + "\t" + str(adj[i][j].y) + "\t" + str(adj[i][j].weight*adj[i][j].sign) + "\n")
+                    f.write(str(adj[i][j].x) + "\t" + str(nodeImp[adj[i][j].x]) + "\t" + str(adj[i][j].y) + "\t" + str(nodeImp[adj[i][j].y]) + "\t" + str(adj[i][j].weight*adj[i][j].sign) + "\n")
                     print(str(adj[i][j].x) + "\t" + str(adj[i][j].y) + "\t" + str(adj[i][j].weight*adj[i][j].sign) + "\n")
                     list2.append((adj[i][j].x, adj[i][j].y))
-                
+        f.write(str(i) + "\t" + str(nodeImp[i]) + "\t" + str(i) + "\t" + str(nodeImp[i]) + "\t" + str(0) + "\n")        
     f.close()
     
+            
