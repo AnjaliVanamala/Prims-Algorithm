@@ -1,1 +1,2 @@
 # Prims-Algorithm
+A simple program that takes in an input adjacency matrix and outputs the list format of the input matrix, matrix format of the matrix output after prim's algorithm, and list version of the matrix after prim's algorithm. Both list versions are intended to be directly put into cytoscape. 
