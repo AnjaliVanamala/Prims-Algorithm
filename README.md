@@ -4,5 +4,5 @@ A simple program that takes in an input adjacency matrix and outputs the list fo
 ## Inputs/Outputs Examples
 Input file: "adjacency_matrix.txt" <br>
 Prim's matrix output file: "prims_graph.txt" <br>
-Flattened prim's matrix output file: "prim's_graph_treatment_20_flat.txt" <br>
-Flattened adjacency matrix output file: "adjacency_matrix_control_12.txt"
+Flattened prim's matrix output file: "prim's_graph_flat.txt" <br>
+Flattened adjacency matrix output file: "adjacency_matrix_flat.txt"
