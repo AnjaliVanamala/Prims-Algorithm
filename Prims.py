@@ -21,7 +21,7 @@ class Node():
         
 # Build adjacency matrix from file 
 def load_adj():
-    lines = [[float(x) for x in line.rstrip().split('\t')] for line in open("adjacency_matrix.txt", "r")]
+    lines = [[float(x) for x in line.rstrip().split('\t')] for line in open("adjacency_matrix_treatment20.txt", "r")]
     adj = [[] for i in range(len(lines))]
     for i in range(len(lines)):
        for j in range(len(lines[i])):
